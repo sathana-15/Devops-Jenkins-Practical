@@ -4,27 +4,19 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building the project...'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                echo 'Running tests...'
-                sh 'echo "All tests passed!"'
+                echo 'Building project...'
             }
         }
 
         stage('Deploy') {
             steps {
-                echo 'Deploying application...'
-                sh '''
-                    # Create deploy directory
-                    mkdir -p /var/www/html
-                    # Copy files (assuming Jenkins has permissions)
-                    cp -r * /var/www/html/
-                '''
-                echo 'Deployment complete! Visit your EC2 Public IP to view the site.'
+                withCredentials([usernamePassword(credentialsId: 'deploy-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                    sh '''
+                        echo "Deploying with user: $USERNAME"
+                        # Example: use secret for curl or deployment
+                        # curl -u $USERNAME:$PASSWORD https://example.com/deploy
+                    '''
+                }
             }
         }
     }
