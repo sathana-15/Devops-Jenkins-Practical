@@ -13,8 +13,8 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'deploy-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     sh '''
                         echo "Deploying with user: $USERNAME"
-                        # Example: use secret for curl or deployment
-                        # curl -u $USERNAME:$PASSWORD https://example.com/deploy
+                      
+                       
                     '''
                 }
             }
